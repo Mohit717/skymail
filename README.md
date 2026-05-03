@@ -1,4 +1,5 @@
 # Skymail - Developer-Friendly Mail Testing Server
+<img src="./screenshots/logo.png" alt="Logo" width="300"/>
 
 **Skymail** is a lightweight, developer-friendly alternative to Mailtrap. It allows developers to create accounts, register multiple projects, and instantly get SMTP credentials to test email functionality in any application. All emails sent to your project are safely captured and viewable in the Skymail dashboard.
 
