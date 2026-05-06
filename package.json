@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 2526",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 2526",
     "smtp": "cross-env SMTP_PORT=2525 tsx smtpRunner.ts",
     "db:connect": "cross-env SMTP_PORT=2525 tsx dbRunner.ts",
     "lint": "eslint"

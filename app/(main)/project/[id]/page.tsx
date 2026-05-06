@@ -95,7 +95,7 @@ export default async function ProjectPage({
               <div className="min-w-0 flex-1">
                 <div className="flex items-center justify-between gap-2">
                   <span className="truncate text-sm font-semibold">
-                    {getSenderName(email.from)}
+                    {getSenderName(email.subject)}
                   </span>
                   <span className="shrink-0 text-[11px] text-muted-foreground">
                     {formatTime(email.createdAt)}
@@ -126,10 +126,10 @@ export default async function ProjectPage({
               </Avatar>
               <div className="min-w-0 flex-1">
                 <p className="font-semibold">
-                  {getSenderName(selectedEmail.from)}
+                  From: {getSenderName(selectedEmail.from)}
                 </p>
                 <p className="text-xs text-muted-foreground">
-                  {getSenderEmail(selectedEmail.from)}
+                  To: {getSenderEmail(selectedEmail.to)}
                 </p>
               </div>
               <div className="flex shrink-0 items-center gap-3">
