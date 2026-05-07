@@ -15,6 +15,7 @@ import {
 import { logout } from "@/app/actions/auth";
 import { UserType } from "@/types/user";
 import Link from "next/link";
+import { getInitials } from "@/lib/utils";
 
 const Header = ({ user }: { user: UserType }) => {
   return (
@@ -41,12 +42,8 @@ const Header = ({ user }: { user: UserType }) => {
                 className="relative h-10 w-10 rounded-full"
                 variant="ghost"
               >
-                <Avatar>
-                  <AvatarImage
-                    alt="@haydenbleasel"
-                    src="https://github.com/haydenbleasel.png"
-                  />
-                  <AvatarFallback>HB</AvatarFallback>
+                <Avatar className="size-10 shrink-0 text-xs">
+                  <AvatarFallback>{getInitials(`${user.firstName} ${user.lastName}` || user.email)}</AvatarFallback>
                 </Avatar>
               </Button>
             </DropdownMenuTrigger>
