@@ -10,6 +10,7 @@ export interface ProjectType {
 
 export type Attachment = {
     filename?: string;
+    orgfilename?: string;
     contentType?: string;
     size?: number;
     path?: string;

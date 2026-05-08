@@ -10,6 +10,7 @@ const emailSchema = new mongoose.Schema({
     attachments: [
         {
             filename: String,
+            orgfilename: String,
             contentType: String,
             size: Number,
             path: String, // File path or URL

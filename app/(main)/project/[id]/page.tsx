@@ -80,16 +80,18 @@ export default async function ProjectPage({
                   <div className="flex flex-wrap gap-3">
                     {(email.attachments ?? []).map(
                       (att: Attachment, i: number) => (
-                        <div
+                        <a
                           key={i}
+                          href={`/api/attachments/${att.filename}`}
+                          download
                           className="flex items-center gap-2 rounded-lg border border-border px-3 py-2"
                         >
                           <Paperclip className="size-4 text-muted-foreground" />
-                          <span className="text-sm">{att.filename}</span>
+                          <span className="text-sm">{att.orgfilename}</span>
                           <span className="text-xs text-muted-foreground">
                             {formatFileSize(att.size ?? 0)}
                           </span>
-                        </div>
+                        </a>
                       ),
                     )}
                   </div>

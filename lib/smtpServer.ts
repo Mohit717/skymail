@@ -49,9 +49,13 @@ const smtpServer = new SMTPServer({
 
                 // Save attachments to disk
                 if (parsed.attachments && parsed.attachments.length > 0) {
+                    const attachmentsDir = path.join(process.cwd(), 'attachments');
+                    if (!fs.existsSync(attachmentsDir)) {
+                        fs.mkdirSync(attachmentsDir, { recursive: true });
+                    }
                     for (const att of parsed.attachments) {
                         const safeFilename = `${Date.now()}_${att.filename}`;
-                        const filePath = path.join(__dirname, 'attachments', safeFilename);
+                        const filePath = path.join(attachmentsDir, safeFilename);
                         fs.writeFileSync(filePath, att.content);
 
                         // Replace cid: links with actual URLs in HTML
@@ -63,7 +67,8 @@ const smtpServer = new SMTPServer({
                         }
 
                         attachmentMeta.push({
-                            filename: att.filename,
+                            filename: safeFilename,
+                            orgfilename: att.filename,
                             contentType: att.contentType,
                             size: att.size,
                             path: `/attachments/${safeFilename}`,
