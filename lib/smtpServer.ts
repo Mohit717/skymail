@@ -12,6 +12,10 @@ declare module "smtp-server" {
             smtpUsername: string | undefined;
             projectId: string | number | undefined;
         };
+        envelope?: {
+            mailFrom: { address: string; args?: any } | false;
+            rcptTo: Array<{ address: string; args?: any }>;
+        };
     }
 }
 
@@ -46,7 +50,6 @@ const smtpServer = new SMTPServer({
             .then(async parsed => {
                 let htmlContent = parsed.html || '';
                 const attachmentMeta = [];
-
                 // Save attachments to disk
                 if (parsed.attachments && parsed.attachments.length > 0) {
                     const attachmentsDir = path.join(process.cwd(), 'attachments');
@@ -89,6 +92,9 @@ const smtpServer = new SMTPServer({
                     projectId: authenticatedUser.projectId,
                     from: Array.isArray(parsed.from) ? parsed.from.map(a => a.text).join(', ') : parsed.from?.text || '',
                     to: Array.isArray(parsed.to) ? parsed.to.map(a => a.text).join(', ') : parsed.to?.text || '',
+                    cc: Array.isArray(parsed.cc) ? parsed.cc.map(a => a.text).join(', ') : parsed.cc?.text || '',
+                    bcc: Array.isArray(parsed.bcc) ? parsed.bcc.map(a => a.text).join(', ') : parsed.bcc?.text || '',
+                    recipients: Array.isArray(session.envelope.rcptTo) ? session.envelope.rcptTo.map(a => a.address).join(', '): '',
                     subject: parsed.subject || '(No subject)',
                     text: parsed.text || '',
                     html: htmlContent, // use modified HTML

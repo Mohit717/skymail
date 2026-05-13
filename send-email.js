@@ -16,11 +16,14 @@ async function sendTestEmail() {
   });
   
   let info = await transporter.sendMail({
-    from: 'Alice <alice@example.com>',
+    from: 'alice@example.com',
     to: 'bob@example.com',
+    cc:"abc@cc.com, def@cc.com",
+    bcc: "ghi@bcc.com, jkl@bcc.com",
     subject: 'Hello from custom SMTP',
     text: 'This is a test email2',
     html: '<b>This is a test email2</b>',
+    keepBcc: true,
     attachments: [
       {
         filename: "logo.png",

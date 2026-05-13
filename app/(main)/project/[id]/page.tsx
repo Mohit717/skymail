@@ -31,13 +31,23 @@ export default async function ProjectPage({
                   {getInitials(email.from || "")}
                 </AvatarFallback>
               </Avatar>
-              <div className="min-w-0 flex-1">
+              <div className="min-w-0 flex-1 space-y-1">
                 <p className="font-semibold">
                   From: {getSenderName(email.from)}
                 </p>
                 <p className="text-xs text-muted-foreground">
                   To: {getSenderEmail(email.to)}
                 </p>
+                {email.cc && (
+                  <p className="text-xs text-muted-foreground">
+                    CC: {email.cc}
+                  </p>
+                )}
+                {email.recipients && (
+                  <p className="text-xs text-muted-foreground">
+                    Recipients: {email.recipients}
+                  </p>
+                )}
               </div>
               <div className="flex shrink-0 items-center gap-3">
                 <span className="text-xs text-muted-foreground">
