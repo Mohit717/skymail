@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start -p 2526",
     "smtp": "cross-env SMTP_PORT=2525 tsx smtpRunner.ts",
+    "dev:all": "concurrently \"npm run dev\" \"npm run smtp\"",
     "db:connect": "cross-env SMTP_PORT=2525 tsx dbRunner.ts",
     "lint": "eslint"
   },
@@ -38,6 +39,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/smtp-server": "^3.5.13",
+    "concurrently": "^9.2.1",
     "cross-env": "^10.1.0",
     "eslint": "^9",
     "eslint-config-next": "16.2.4",
