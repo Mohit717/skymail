@@ -1,4 +1,6 @@
 import CreateProject from "@/components/CreateProject";
+import SMTPCredentials from "@/components/SMTPCredentials";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { verifySession } from "@/lib/dal/dal";
 import { getProjects } from "@/lib/dal/projectDAL";
@@ -18,33 +20,30 @@ export default async function DashboardPage() {
         </h1>
       </div>
 
-      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5 auto-rows-fr">
         {projects.length > 0 && (
           <>
             {projects.map((project: ProjectType) => (
-              <Link key={project._id} href={`/project/${project._id}`}>
-                <Card
-                  className={`relative flex flex-col overflow-hidden border-0 p-4 shadow-lg bg-linear-to-br from-violet-600 to-purple-500`}
-                >
-                  {/* Blurred blob at top */}
-                  <div className="mb-4">
-                    <h3 className="text-xl font-bold">{project.name}</h3>
-                    <p className="mb-0">{project.description}</p>
-                  </div>
-
-                  {/* SMTP credentials */}
-                  <div className="mt-auto space-y-0.5 text-xs text-white/90">
-                    <p>
-                      <span className="font-semibold">SMTP_USERNAME:</span>{" "}
-                      {project.smtpUsername}
-                    </p>
-                    <p>
-                      <span className="font-semibold">SMTP_PASSWORD:</span>{" "}
-                      {project.smtpPassword}
-                    </p>
-                  </div>
-                </Card>
-              </Link>
+              <Card key={project._id.toString()}
+                className={`relative flex h-full flex-col overflow-hidden border-0 p-4 shadow-lg bg-linear-to-br from-violet-600 to-purple-500`}
+              >
+                {/* Blurred blob at top */}
+                <div>
+                  <h3 className="text-xl font-bold">{project.name}</h3>
+                  <p className="mb-0">{project.description}</p>
+                </div>
+                <div className="mt-auto">
+                  <SMTPCredentials
+                    username={project.smtpUsername}
+                    password={project.smtpPassword}
+                  />
+                </div>
+                <Button asChild className="w-full">
+                  <Link href={`/project/${project._id}`} className="w-full">
+                    View Details
+                  </Link>
+                </Button>
+              </Card>
             ))}
           </>
         )}

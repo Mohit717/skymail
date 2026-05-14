@@ -25,7 +25,7 @@ const CreateProject = () => {
       <DialogTrigger asChild>
         <Button
           type="button"
-          className="h-35.7 w-full flex-col items-center justify-center gap-2 rounded-xl border-2 border-dotted border-fuchsia-500/70 bg-fuchsia-500/10 p-4 text-center text-lg font-semibold hover:bg-fuchsia-500/20"
+          className="h-35.7 w-full flex-col items-center justify-center gap-2 rounded-xl border-2 border-dotted border-fuchsia-500/70 bg-fuchsia-500/10 p-4 text-center text-lg font-semibold text-black/70 hover:bg-fuchsia-500/20 dark:text-white/70 dark:hover:bg-fuchsia-500/20"
         >
           <Plus className="size-5" />
           Create Project
@@ -44,11 +44,17 @@ const CreateProject = () => {
             <Field>
               <Label htmlFor="name">Name</Label>
               <Input id="name" name="name" placeholder="Pedro Duarte" />
-              {state?.errors?.name && <p className="text-red-500 text-xs mb-0">{state.errors.name}</p>}
+              {state?.errors?.name && (
+                <p className="text-red-500 text-xs mb-0">{state.errors.name}</p>
+              )}
             </Field>
             <Field>
               <Label htmlFor="description">Description</Label>
-              <Input id="description" name="description" placeholder="Project description" />
+              <Input
+                id="description"
+                name="description"
+                placeholder="Project description"
+              />
             </Field>
           </FieldGroup>
           <DialogFooter className="mt-7">
