@@ -1,46 +1,59 @@
 'use client'
-import React, { useActionState } from "react";
+import React, { useActionState, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { login } from "@/app/actions/auth";
-import { Loader } from "lucide-react";
-
-const inputClass = "h-10 w-full rounded-lg border border-white/10 bg-white/5 px-3 text-sm text-neutral-100 outline-none ring-offset-background transition placeholder:text-neutral-500 focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary/35"
+import { Loader, Eye, EyeOff } from "lucide-react";
 
 const LoginForm = () => {
   const [state, action, pending] = useActionState(login, undefined);
+  const [showPassword, setShowPassword] = useState(false);
+
   return (
     <form className="space-y-4" action={action}>
       <div className="space-y-2">
-        <label htmlFor="email" className="text-sm font-medium">
+        <Label htmlFor="email">
           Email
-        </label>
-        <input
+        </Label>
+        <Input
           id="email"
           type="email"
           name="email"
           placeholder="you@example.com"
-          className={inputClass}
         />
         {state?.errors?.email && <p className="text-red-500 text-xs mb-0">{state.errors.email}</p>}
       </div>
 
       <div className="space-y-2">
         <div className="flex items-center justify-between">
-          <label htmlFor="password" className="text-sm font-medium">
+          <Label htmlFor="password">
             Password
-          </label>
+          </Label>
           <Link href="/forgot-password" className="text-xs text-primary hover:underline">
             Forgot password?
           </Link>
         </div>
-        <input
-          id="password"
-          type="password"
-          name="password"
-          placeholder="Enter your password"
-          className={inputClass}
-        />
+        <div className="relative">
+          <Input
+            id="password"
+            type={showPassword ? "text" : "password"}
+            name="password"
+            placeholder="Enter your password"
+          />
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+          >
+            {showPassword ? (
+              <EyeOff className="h-4 w-4" />
+            ) : (
+              <Eye className="h-4 w-4" />
+            )}
+          </button>
+        </div>
         {state?.errors?.password && (
           <div className="text-red-500 text-xs mb-0"> 
             <p>Password must:</p>

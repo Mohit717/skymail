@@ -13,7 +13,7 @@ export async function getProject(conditions: { [key: string]: string | number | 
 
 export async function getProjectById(id: string) {
     await connectDB();
-    return Project.findById(id);
+    return Project.findById(id).lean();
 }
 
 export async function createProject(data: { [key: string]: string|number }) {

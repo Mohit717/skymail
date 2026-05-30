@@ -14,13 +14,13 @@ export default async function MainLayout({
     <div className="flex min-h-screen flex-col bg-background">
       <Header
         user={{
-          id: user?._id.toHexString() || "",
+          _id: user?._id.toHexString() || "",
           firstName: user?.firstName || "",
           lastName: user?.lastName || "",
           email: user?.email || "",
         }}
       />
-      <main className="w-full flex-1 px-6 py-8 sm:px-8">{children}</main>
+      <main className="w-full flex-1 p-4">{children}</main>
       <Footer />
     </div>
   );
