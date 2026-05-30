@@ -17,7 +17,7 @@ export type Attachment = {
 };
 
 export type EmailType = {
-    _id: { toString(): string };
+    _id: string;
     from?: string;
     to?: string;
     cc?: string;
@@ -28,3 +28,23 @@ export type EmailType = {
     attachments?: Attachment[];
     createdAt: Date | string;
 };
+
+export type EmailListAsideProps = {
+    id: string;
+    emailId?: string;
+    page?: number;
+};
+
+export type EmailListResponse = {
+    data: EmailType[];
+    pagination: {
+        total: number;
+        page: number;
+        limit: number;
+        totalPages: number;
+        hasNextPage: boolean;
+        hasPrevPage: boolean;
+    };
+};
+
+export type EmailListsProps = EmailListAsideProps & EmailListResponse; 

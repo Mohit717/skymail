@@ -1,3 +1,4 @@
+'use client'
 import { Avatar, AvatarFallback } from "./ui/avatar";
 import {
   formatTime,
@@ -6,40 +7,30 @@ import {
   getSenderName,
 } from "@/lib/utils";
 import { getEmailsByProjectId } from "@/lib/dal/emailDAL";
-import { EmailType } from "@/types/project";
+import { EmailListAsideProps, EmailListResponse, EmailListsProps, EmailType } from "@/types/project";
 import Link from "next/link";
-import { ArrowLeftSquare, ArrowRightSquare } from "lucide-react";
+import { ArrowLeftSquare, ArrowRightSquare, RefreshCw } from "lucide-react";
+import { Button } from "./ui/button";
 
-type EmailListAsideProps = {
-  id: string;
-  emailId?: string;
-  page?: number;
-};
-
-type EmailListResponse = {
-  data: EmailType[];
-  pagination: {
-    total: number;
-    page: number;
-    limit: number;
-    totalPages: number;
-    hasNextPage: boolean;
-    hasPrevPage: boolean;
-  };
-};
-
-const EmailListAside = async ({ id, emailId, page }: EmailListAsideProps) => {
-  const { data: emails, pagination }: EmailListResponse = await getEmailsByProjectId(id, page || 1);
-
+const EmailListAside = ({ id, emailId, page, data, pagination }: EmailListsProps) => {
+  
+  const refetch = () => {
+    window.location.reload();
+  }
   return (
     <aside className="w-87 shrink-0 overflow-y-auto border-r border-border">
-      {emails.length === 0 ? (
+      <div className="py-2 text-end">
+        <Button variant={"ghost"} onClick={refetch}>
+          <RefreshCw className="size-4" />
+        </Button>
+      </div>
+      {data.length === 0 ? (
         <div className="flex h-full items-center justify-center p-8 text-sm text-muted-foreground">
           No emails yet
         </div>
       ) : (
         <>
-          {emails.map((email: EmailType) => (
+          {data.map((email: EmailType) => (
             <Link
               key={email._id.toString()}
               href={`/project/${id}?emailId=${email._id}&page=${page || 1}`}

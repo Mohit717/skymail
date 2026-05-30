@@ -1,7 +1,7 @@
 import EmailListAside from "@/components/EmailListAside";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { getEmailById } from "@/lib/dal/emailDAL";
+import { getEmailById, getEmailsByProjectId } from "@/lib/dal/emailDAL";
 import { getProjectById } from "@/lib/dal/projectDAL";
 import {
   formatFileSize,
@@ -10,7 +10,7 @@ import {
   getSenderEmail,
   getSenderName,
 } from "@/lib/utils";
-import { Attachment, ProjectType } from "@/types/project";
+import { Attachment, EmailListResponse, ProjectType } from "@/types/project";
 import { ArrowLeft, Paperclip, Reply, Star } from "lucide-react";
 import Link from "next/link";
 
@@ -25,6 +25,7 @@ export default async function ProjectPage({
   const { emailId, page } = await searchParams;
   const email = emailId ? await getEmailById(emailId) : null;
   const project: ProjectType = await getProjectById(id);
+  const { data: emails, pagination }: EmailListResponse = await getEmailsByProjectId(id, page || 1);
   
   return (
     <>
@@ -42,7 +43,7 @@ export default async function ProjectPage({
         </div>
       </div>
       <div className="flex h-[calc(100vh-10rem)] overflow-hidden rounded-xl border border-border bg-background">
-        <EmailListAside id={id} emailId={emailId} page={page} />
+        <EmailListAside id={id} emailId={emailId} page={page} data={emails} pagination={pagination} />
 
         {/* Right panel: email detail */}
         <div className="flex flex-1 flex-col overflow-hidden">
