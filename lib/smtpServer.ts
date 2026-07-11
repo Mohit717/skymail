@@ -12,10 +12,6 @@ declare module "smtp-server" {
             smtpUsername: string | undefined;
             projectId: string | number | undefined;
         };
-        envelope?: {
-            mailFrom: { address: string; args?: any } | false;
-            rcptTo: Array<{ address: string; args?: any }>;
-        };
     }
 }
 

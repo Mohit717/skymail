@@ -1,16 +1,15 @@
 'use client'
 import { Avatar, AvatarFallback } from "./ui/avatar";
 import {
-  formatTime,
   getInitials,
   getSenderEmail,
   getSenderName,
 } from "@/lib/utils";
-import { getEmailsByProjectId } from "@/lib/dal/emailDAL";
-import { EmailListAsideProps, EmailListResponse, EmailListsProps, EmailType } from "@/types/project";
+import { EmailListsProps, EmailType } from "@/types/project";
 import Link from "next/link";
 import { ArrowLeftSquare, ArrowRightSquare, RefreshCw } from "lucide-react";
 import { Button } from "./ui/button";
+import moment from "moment";
 
 const EmailListAside = ({ id, emailId, page, data, pagination }: EmailListsProps) => {
   
@@ -45,15 +44,12 @@ const EmailListAside = ({ id, emailId, page, data, pagination }: EmailListsProps
                   <span className="truncate text-sm font-semibold">
                     {getSenderName(email.subject)}
                   </span>
-                  {/* <span className="shrink-0 text-[11px] text-muted-foreground">
-                    {formatTime(email.createdAt)}
-                  </span> */}
+                  <span className="shrink-0 text-[11px] text-muted-foreground">
+                    {moment(email.createdAt).fromNow()}
+                  </span>
                 </div>
                 <p className="truncate text-xs text-muted-foreground">
                   {getSenderEmail(email.from)}
-                </p>
-                <p className="shrink-0 text-[11px] text-muted-foreground">
-                  {formatTime(email.createdAt)}
                 </p>
               </div>
             </Link>

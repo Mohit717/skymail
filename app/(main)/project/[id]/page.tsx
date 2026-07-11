@@ -5,13 +5,13 @@ import { getEmailById, getEmailsByProjectId } from "@/lib/dal/emailDAL";
 import { getProjectById } from "@/lib/dal/projectDAL";
 import {
   formatFileSize,
-  formatTime,
   getInitials,
   getSenderEmail,
   getSenderName,
 } from "@/lib/utils";
 import { Attachment, EmailListResponse, ProjectType } from "@/types/project";
 import { ArrowLeft, Paperclip, Reply, Star } from "lucide-react";
+import moment from "moment";
 import Link from "next/link";
 
 export default async function ProjectPage({
@@ -76,7 +76,7 @@ export default async function ProjectPage({
                 </div>
                 <div className="flex shrink-0 items-center gap-3">
                   <span className="text-xs text-muted-foreground">
-                    {formatTime(email.createdAt)}
+                    {moment(email.createdAt).fromNow()}
                   </span>
                   <button className="text-muted-foreground transition-colors hover:text-foreground">
                     <Reply className="size-4" />

@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 
-// const MONGODB_URI = process.env.MONGODB_URI!;
-const MONGODB_URI = "mongodb://localhost:27017/skymail";
+const MONGODB_URI = String(process.env.NEXT_PUBLIC_MONGODB_URI);
+console.log(MONGODB_URI)
+// const MONGODB_URI = "mongodb://localhost:27017/skymail";
 
 export async function connectDB() {
     if (mongoose.connection.readyState === 1) return;

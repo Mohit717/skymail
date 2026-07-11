@@ -28,7 +28,7 @@ export async function getEmailsByProjectId(
   ]);
 
   return {
-    data: emails,
+    data: JSON.parse(JSON.stringify(emails)),
     pagination: {
       total,
       page,
@@ -42,7 +42,8 @@ export async function getEmailsByProjectId(
 
 export async function getEmailById(id: string) {
   await connectDB();
-  return Email.findById(id).lean();
+  const email = await Email.findById(id).lean();
+  return JSON.parse(JSON.stringify(email));
 }
 
 export async function createEmail(data: { [key: string]: any }) {
