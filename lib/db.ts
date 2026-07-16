@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
+import { loadEnvConfig } from "@next/env";
+loadEnvConfig(process.cwd());
 
-const MONGODB_URI = String(process.env.NEXT_PUBLIC_MONGODB_URI);
-console.log(MONGODB_URI)
-// const MONGODB_URI = "mongodb://localhost:27017/skymail";
+const MONGODB_URI = String(process.env.MONGODB_URI);
 
 export async function connectDB() {
     if (mongoose.connection.readyState === 1) return;
