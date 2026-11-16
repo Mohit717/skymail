@@ -35,7 +35,7 @@ export async function createSession(userId: string) {
     const session = await encrypt({ userId, expiresAt: expiresAt.toISOString() });
     const cookieStore = await cookies()
 
-    cookieStore.set('session', session, {
+    cookieStore.set('skymail_session', session, {
         httpOnly: true,
         secure: true,
         expires: expiresAt,
@@ -45,7 +45,7 @@ export async function createSession(userId: string) {
 }
 
 export async function updateSession() {
-    const session = (await cookies()).get('session')?.value
+    const session = (await cookies()).get('skymail_session')?.value
     const payload = await decrypt(session)
 
     if (!session || !payload) {
@@ -55,7 +55,7 @@ export async function updateSession() {
     const expires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
 
     const cookieStore = await cookies()
-    cookieStore.set('session', session, {
+    cookieStore.set('skymail_session', session, {
         httpOnly: true,
         secure: true,
         expires: expires,
