@@ -66,5 +66,5 @@ export async function updateSession() {
 
 export async function deleteSession() {
     const cookieStore = await cookies()
-    cookieStore.delete('session')
+    cookieStore.delete('skymail_session')
 }
